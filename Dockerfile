@@ -47,7 +47,7 @@ RUN \
   apt-get install -y ruby
 
 #install drush, to use for site and module installs
-RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush \
+RUN wget https://github.com/drush-ops/drush/releases/download/8.2.3/drush.phar -O drush \
   && chmod +x drush \
 && mv drush /usr/local/bin
 
