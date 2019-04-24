@@ -41,13 +41,10 @@ RUN git clone https://github.com/nikic/php-ast.git \
   && cd .. \
   && rm php-ast -rf
   
-#install ruby
-RUN cd /tmp && \
-    wget -O - https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz | tar xzvf - && \
-    ( cd ruby-install-0.6.1 && \
-      make install ) && \
-    rm -rf ruby-install-*
-RUN ruby-install --cleanup ruby 2.2
+# Install Ruby.
+RUN \
+  apt-get update && \
+  apt-get install -y ruby
 
 #install drush, to use for site and module installs
 RUN php -r "readfile('https://s3.amazonaws.com/files.drush.org/drush.phar');" > drush \
