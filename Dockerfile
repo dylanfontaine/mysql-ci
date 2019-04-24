@@ -40,6 +40,14 @@ RUN git clone https://github.com/nikic/php-ast.git \
   && echo 'extension=ast.so' > /usr/local/etc/php/conf.d/ast.ini \
   && cd .. \
   && rm php-ast -rf
+  
+#install ruby
+RUN cd /tmp && \
+    wget -O - https://github.com/postmodern/ruby-install/archive/v0.6.1.tar.gz | tar xzvf - && \
+    ( cd ruby-install-0.6.1 && \
+      make install ) && \
+    rm -rf ruby-install-*
+RUN ruby-install --cleanup ruby 2.2
 
 #install drush, to use for site and module installs
 RUN curl -L -o drush.phar $(curl -s  https://api.github.com/repos/drush-ops/drush/releases/latest | grep drush/releases/download | cut -d '"' -f 4) \
