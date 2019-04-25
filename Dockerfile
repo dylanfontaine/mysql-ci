@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
     make \
     ruby \
     shellcheck \
+    rsync \
     && rm -rf /var/lib/apt/lists/*
 
 #install latest chrome
