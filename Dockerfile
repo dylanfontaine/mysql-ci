@@ -105,7 +105,11 @@ RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker
 
 RUN ln -s /usr/bin/php /usr/local/bin/php
 
-RUN apt-get update && apt-get -y install firefox wget bc siege apache2-utils
+RUN pushd /opt
+    wget http://ftp.mozilla.org/pub/firefox/releases/66.0.3/linux-x86_64/en-US/firefox-66.0.3.tar.bz2 \
+    && tar xvjf firefox-66.0.3.tar.bz2 \
+	&& ln -s /opt/firefox/firefox /usr/local/bin/ \
+	popd
 
 RUN wget https://raw.githubusercontent.com/smmccabe/loadtimer/master/loadtimer \
     && chmod +x loadtimer \
