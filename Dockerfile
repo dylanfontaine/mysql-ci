@@ -5,11 +5,13 @@ ENV NGINX_LOG_DIR /var/logs/nginx/
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
+# Set up nginx conf with our variables
 CMD /bin/sed -i "s|_WEB_ROOT_|$WEB_ROOT|g" /etc/nginx/conf.d/default.conf \
-  && /bin/sed -i "s|_NGINX_LOG_DIR_|$NGINX_LOG_DIR|g" /etc/nginx/conf.d/default.conf
+  && /bin/sed -i "s|_NGINX_LOG_DIR_|$NGINX_LOG_DIR|g" /etc/nginx/conf.d/default.conf \
+  && mkdir $NGINX_LOG_DIR \
+  && chown -Rf nginx.nginx $NGINX_LOG_DIR \
+  && chown -Rf nginx.nginx $WEB_ROOT
 
-
-CMD chown -Rf nginx.nginx $WEB_ROOT
 
 RUN apt-get update && apt-get install -y \
     libpng-dev \
