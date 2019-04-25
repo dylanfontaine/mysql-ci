@@ -6,13 +6,6 @@ CMD chown -Rf nginx.nginx /builds/telus/commerce/
 
 CMD service nginx reload
 
-# install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev mysql-client git libbz2-dev libgmp-dev acl unzip gnupg bc bzip2 wget
-RUN apt-get update && apt-get install -y gnupg
-RUN rm -rf /var/lib/apt/lists/*
-RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr
-RUN docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip bcmath bz2 gmp pcntl
-
 RUN echo 'sendmail_path=/bin/true' > /usr/local/etc/php/conf.d/sendmail.ini
 
 #install latest chrome
