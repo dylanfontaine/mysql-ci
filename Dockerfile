@@ -1,6 +1,10 @@
-FROM php:7.0-apache
+FROM wyveo/nginx-php-fpm:php70
 
-RUN a2enmod rewrite
+ADD ./nginx.conf /etc/nginx/conf.d/default.conf
+
+chown -Rf nginx.nginx /builds/telus/commerce/
+
+service nginx reload
 
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev mysql-client git libbz2-dev libgmp-dev acl unzip gnupg bc bzip2 wget
@@ -10,13 +14,6 @@ RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr
 RUN docker-php-ext-install gd mbstring pdo pdo_mysql pdo_pgsql zip bcmath bz2 gmp pcntl
 
 RUN echo 'sendmail_path=/bin/true' > /usr/local/etc/php/conf.d/sendmail.ini
-
-#install phantomjs
-RUN apt-get update && apt-get install -y build-essential chrpath libssl-dev libxft-dev libfreetype6-dev libfreetype6 libfontconfig1-dev libfontconfig1 \
-  && wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 \
-  && tar jxf phantomjs-2.1.1-linux-x86_64.tar.bz2 \
-  && mv phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/local/bin/phantomjs \
-  && chmod +x /usr/local/bin/phantomjs
 
 #install latest chrome
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -31,16 +28,6 @@ RUN CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_R
   && mv -f ~/chromedriver /usr/local/bin/chromedriver \
   && chmod 0755 /usr/local/bin/chromedriver
 
-#install phan dependencies
-RUN git clone https://github.com/nikic/php-ast.git \
-  && cd php-ast \
-  && phpize \
-  && ./configure \
-  && make install \
-  && echo 'extension=ast.so' > /usr/local/etc/php/conf.d/ast.ini \
-  && cd .. \
-  && rm php-ast -rf
-  
 # Install Ruby.
 RUN \
   apt-get update && \
