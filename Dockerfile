@@ -2,7 +2,7 @@ FROM wyveo/nginx-php-fpm:php70
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
-chown -Rf nginx.nginx /builds/telus/commerce/
+RUN chown -Rf nginx.nginx /builds/telus/commerce/
 
 service nginx reload
 
