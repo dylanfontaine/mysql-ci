@@ -90,3 +90,5 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker.phar \
   && chmod +x security-checker.phar \
   && mv security-checker.phar /usr/local/bin/security-checker
+  
+CMD cp `which php` /usr/local/bin/php
