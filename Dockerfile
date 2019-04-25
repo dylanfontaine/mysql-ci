@@ -2,9 +2,9 @@ FROM wyveo/nginx-php-fpm:php70
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
-RUN chown -Rf nginx.nginx /builds/telus/commerce/
+CMD chown -Rf nginx.nginx /builds/telus/commerce/
 
-service nginx reload
+CMD service nginx reload
 
 # install the PHP extensions we need
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev mysql-client git libbz2-dev libgmp-dev acl unzip gnupg bc bzip2 wget
