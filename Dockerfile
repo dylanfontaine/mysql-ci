@@ -1,8 +1,12 @@
 FROM wyveo/nginx-php-fpm:php70
 
+ENV WEB_ROOT /var/www/html
+
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD chown -Rf nginx.nginx /builds/telus/commerce/
+CMD /usr/bin/sed -i "s/_WEB_ROOT_/$WEB_ROOT/" /etc/nginx/conf.d/default.conf
+
+CMD chown -Rf nginx.nginx $WEB_ROOT
 
 CMD service nginx reload
 
