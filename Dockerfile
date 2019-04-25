@@ -13,7 +13,10 @@ CMD /bin/sed -i "s|_WEB_ROOT_|$WEB_ROOT|g" /etc/nginx/conf.d/default.conf \
   && chown -Rf nginx.nginx $WEB_ROOT
 
 
-RUN apt-get update && apt-get install -y \
+RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+    && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
+    && apt-get update \
+    && apt-get install --no-install-recommends --no-install-suggests -q -y \
     libpng-dev \
     libjpeg-dev \
     libpq-dev \
