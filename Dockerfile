@@ -5,8 +5,8 @@ ENV NGINX_LOG_DIR /var/logs/nginx/
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD /usr/bin/sed -i "s/_WEB_ROOT_/$WEB_ROOT/" /etc/nginx/conf.d/default.conf \
-  && /usr/bin/sed -i "s/_NGINX_LOG_DIR_/$NGINX_LOG_DIR/" /etc/nginx/conf.d/default.conf
+CMD /bin/sed -i "s/_WEB_ROOT_/$WEB_ROOT/g" /etc/nginx/conf.d/default.conf \
+  && /bin/sed -i "s/_NGINX_LOG_DIR_/$NGINX_LOG_DIR/g" /etc/nginx/conf.d/default.conf
 
 
 CMD chown -Rf nginx.nginx $WEB_ROOT
