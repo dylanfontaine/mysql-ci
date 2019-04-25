@@ -30,6 +30,7 @@ RUN apt-get update && apt-get install -y \
     ruby \
     shellcheck \
     rsync \
+    php-7.0-gdm \
     && rm -rf /var/lib/apt/lists/*
 
 #install latest chrome
