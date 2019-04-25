@@ -104,3 +104,9 @@ RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker
   && mv security-checker.phar /usr/local/bin/security-checker
 
 RUN ln -s /usr/bin/php /usr/local/bin/php
+
+RUN apt-get update && apt-get -y install firefox wget bc siege apache2-utils
+
+RUN wget https://raw.githubusercontent.com/smmccabe/loadtimer/master/loadtimer \
+    && chmod +x loadtimer \
+    && mv loadtimer /usr/local/bin/loadtimer
