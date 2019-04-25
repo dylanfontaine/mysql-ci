@@ -13,7 +13,8 @@ CMD /bin/sed -i "s|_WEB_ROOT_|$WEB_ROOT|g" /etc/nginx/conf.d/default.conf \
   && chown -Rf nginx.nginx $WEB_ROOT
 
 
-RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+RUN apt-get -y install apt-transport-https lsb-release ca-certificates \
+    && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
     && apt-get update \
     && apt-get install --no-install-recommends --no-install-suggests -q -y \
@@ -33,7 +34,7 @@ RUN wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
     ruby \
     shellcheck \
     rsync \
-    php7.0-gdm \
+    php7.0-gmp \
     && rm -rf /var/lib/apt/lists/*
 
 #install latest chrome
