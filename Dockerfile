@@ -1,14 +1,15 @@
 FROM wyveo/nginx-php-fpm:php70
 
 ENV WEB_ROOT /var/www/html
+ENV NGINX_LOG_DIR /var/logs/nginx/
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD /usr/bin/sed -i "s/_WEB_ROOT_/$WEB_ROOT/" /etc/nginx/conf.d/default.conf
+CMD /usr/bin/sed -i "s/_WEB_ROOT_/$WEB_ROOT/" /etc/nginx/conf.d/default.conf \
+  && /usr/bin/sed -i "s/_NGINX_LOG_DIR_/$NGINX_LOG_DIR/" /etc/nginx/conf.d/default.conf
+
 
 CMD chown -Rf nginx.nginx $WEB_ROOT
-
-CMD service nginx reload
 
 RUN apt-get update && apt-get install -y \
     libpng-dev \
@@ -94,5 +95,5 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker.phar \
   && chmod +x security-checker.phar \
   && mv security-checker.phar /usr/local/bin/security-checker
-  
-CMD cp /usr/bin/php /usr/local/bin/
+
+RUN ln -s /usr/bin/php /usr/local/bin/php
