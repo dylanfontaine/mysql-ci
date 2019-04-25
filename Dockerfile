@@ -6,7 +6,7 @@ CMD chown -Rf nginx.nginx /builds/telus/commerce/
 
 CMD service nginx reload
 
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev mysql-client git libbz2-dev libgmp-dev acl gnupg bc bzip2
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev mysql-client git libbz2-dev libgmp-dev acl gnupg bc bzip2 openssh-server
 RUN apt-get update && apt-get install -y gnupg
 RUN rm -rf /var/lib/apt/lists/*
 
