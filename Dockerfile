@@ -102,11 +102,9 @@ RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker
 
 RUN ln -s /usr/bin/php /usr/local/bin/php
 
-RUN pushd /opt \
-    wget http://ftp.mozilla.org/pub/firefox/releases/66.0.3/linux-x86_64/en-US/firefox-66.0.3.tar.bz2 \
-    && tar xvjf firefox-66.0.3.tar.bz2 \
-	&& ln -s /opt/firefox/firefox /usr/local/bin/ \
-	popd
+RUN wget -O /opt/firefox.tar.bz2 http://ftp.mozilla.org/pub/firefox/releases/66.0.3/linux-x86_64/en-US/firefox-66.0.3.tar.bz2 \
+    && tar xvjf firefox.tar.bz2 \
+	  && ln -s /opt/firefox/firefox /usr/local/bin/
 
 RUN wget https://raw.githubusercontent.com/smmccabe/loadtimer/master/loadtimer \
     && chmod +x loadtimer \
