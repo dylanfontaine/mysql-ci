@@ -7,4 +7,3 @@ Contains all the dependencies for building, deploying, and testing a Drupal 7 pr
 Variables
 ========
 * `WEB_ROOT` - The directory of the web root. Defaults to /var/www/html
-* `NGINX_LOG_DIR` - The directory where the nginx logs are stored. Defaults to /var/log/nginx
