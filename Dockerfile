@@ -5,7 +5,8 @@ ENV WEB_ROOT /var/www/html
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Set up nginx conf with our variables
-CMD /bin/sed -i "s|_WEB_ROOT_|${WEB_ROOT}|g" /etc/nginx/conf.d/default.conf \
+CMD envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf \
+  && nginx -g 'daemon off;'\
   && chown -Rf nginx.nginx $WEB_ROOT
 
 
@@ -101,7 +102,7 @@ RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker
 
 RUN ln -s /usr/bin/php /usr/local/bin/php
 
-RUN pushd /opt
+RUN pushd /opt \
     wget http://ftp.mozilla.org/pub/firefox/releases/66.0.3/linux-x86_64/en-US/firefox-66.0.3.tar.bz2 \
     && tar xvjf firefox-66.0.3.tar.bz2 \
 	&& ln -s /opt/firefox/firefox /usr/local/bin/ \
