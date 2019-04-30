@@ -5,8 +5,8 @@ ENV WEB_ROOT /var/www/html
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
 # Set up nginx conf with our variables
-CMD envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf \
-  && nginx -g 'daemon off;'\
+CMD envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp \
+  && mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf \
   && chown -Rf nginx.nginx $WEB_ROOT
 
 
