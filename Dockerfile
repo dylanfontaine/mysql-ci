@@ -28,8 +28,9 @@ RUN apt-get -y install apt-transport-https lsb-release ca-certificates \
     php7.0-gmp \
     gettext \
     && rm -rf /var/lib/apt/lists/* \
-    && bash -c envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp \
+    && envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp \
     && mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf \
+    && mkdir -p $WEB_ROOT \
     && chown -Rf nginx.nginx $WEB_ROOT
 
 
