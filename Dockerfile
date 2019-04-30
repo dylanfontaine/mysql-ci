@@ -4,12 +4,6 @@ ENV WEB_ROOT /var/www/html
 
 ADD ./nginx.conf /etc/nginx/conf.d/default.conf
 
-# Set up nginx conf with our variables
-RUN bash -c envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp \
-  && mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf \
-  && chown -Rf nginx.nginx $WEB_ROOT
-
-
 RUN apt-get -y install apt-transport-https lsb-release ca-certificates \
     && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
@@ -32,7 +26,12 @@ RUN apt-get -y install apt-transport-https lsb-release ca-certificates \
     shellcheck \
     rsync \
     php7.0-gmp \
-    && rm -rf /var/lib/apt/lists/*
+    gettext \
+    && rm -rf /var/lib/apt/lists/* \
+    && bash -c envsubst '\$WEB_ROOT' < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp \
+    && mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf \
+    && chown -Rf nginx.nginx $WEB_ROOT
+
 
 #install latest chrome
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
