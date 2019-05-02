@@ -26,6 +26,7 @@ RUN apt-get -y install apt-transport-https lsb-release ca-certificates \
     shellcheck \
     rsync \
     php7.0-gmp \
+    php7.0-xdebug \
     gettext \
     patch \
     && rm -rf /var/lib/apt/lists/* \
