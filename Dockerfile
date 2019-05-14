@@ -36,6 +36,7 @@ RUN apt-get -y install apt-transport-https lsb-release ca-certificates \
     && chown -Rf nginx.nginx $WEB_ROOT
 
 
+
 #install latest chrome
 RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
@@ -88,7 +89,7 @@ RUN wget https://raw.githubusercontent.com/smmccabe/readmecheck/master/readmeche
   && chmod +x readmecheck \
   && mv readmecheck /usr/local/bin/readmecheck
 
-RUN curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh \
+RUN curl -sL https://deb.nodesource.com/setup_9.x -o nodesource_setup.sh \
   && bash nodesource_setup.sh \
   && rm nodesource_setup.sh \
   && apt-get install -y nodejs
@@ -103,3 +104,8 @@ RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker
   && mv security-checker.phar /usr/local/bin/security-checker
 
 RUN ln -s /usr/bin/php /usr/local/bin/php
+
+WORKDIR /app
+COPY . /app/
+RUN npm install
+
