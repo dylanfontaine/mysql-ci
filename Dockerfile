@@ -106,6 +106,5 @@ RUN curl -sL http://get.sensiolabs.org/security-checker.phar -o security-checker
 RUN ln -s /usr/bin/php /usr/local/bin/php
 
 WORKDIR /app
-COPY . /app/
 RUN npm install
 
