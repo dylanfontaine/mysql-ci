@@ -9,25 +9,26 @@ RUN apt-get -y install --no-install-recommends apt-transport-https lsb-release c
   && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list \
   && apt-get update \
   && apt-get install --no-install-recommends --no-install-suggests -q -y \
-  libpng-dev \
-  libjpeg-dev \
-  libpq-dev \
-  git \
-  libbz2-dev \
-  libgmp-dev \
   acl \
-  gnupg \
   bc \
   bzip2 \
-  openssh-server \
+  default-mysql-client \
+  gettext \
+  git \
+  gnupg \
+  libbz2-dev \
+  libgmp-dev \
+  libjpeg-dev \
+  libpng-dev \
+  libpq-dev \
   make \
-  ruby \
-  shellcheck \
-  rsync \
+  openssh-server \
+  patch \
   php7.0-gmp \
   php7.0-xdebug \
-  gettext \
-  patch \
+  rsync \
+  ruby \
+  shellcheck \
   && rm -rf /var/lib/apt/lists/* \
   && envsubst "\$WEB_ROOT" < /etc/nginx/conf.d/default.conf > /etc/nginx/conf.d/default.conf.tmp \
   && mv /etc/nginx/conf.d/default.conf.tmp /etc/nginx/conf.d/default.conf \
