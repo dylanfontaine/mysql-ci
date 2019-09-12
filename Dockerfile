@@ -74,11 +74,11 @@ RUN curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar \
   && mv phpcs.phar /usr/local/bin/phpcs
 
 RUN composer global require \
-  && drupal/coder \
-  && phpcompatibility/php-compatibility \
-  && phpmd/phpmd \
-  && sebastian/phpcpd \
-  && smmccabe/phpdebt \
+  drupal/coder \
+  phpcompatibility/php-compatibility \
+  phpmd/phpmd \
+  sebastian/phpcpd \
+  smmccabe/phpdebt \
   && phpcs --config-set installed_paths /composer/vendor/drupal/coder/coder_sniffer
 
 RUN curl -o readmecheck https://raw.githubusercontent.com/smmccabe/readmecheck/master/readmecheck \
