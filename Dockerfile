@@ -41,14 +41,6 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
     && apt-get update && apt-get install -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
 
-#install chromedriver
-RUN CHROME_DRIVER_VERSION=`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE` \
-  && wget -N http://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/ \
-  && unzip ~/chromedriver_linux64.zip -d ~/ \
-  && rm ~/chromedriver_linux64.zip \
-  && mv -f ~/chromedriver /usr/local/bin/chromedriver \
-  && chmod 0755 /usr/local/bin/chromedriver
-
 #install drush, to use for site and module installs
 RUN wget https://github.com/drush-ops/drush/releases/download/8.2.3/drush.phar -O drush \
   && chmod +x drush \
